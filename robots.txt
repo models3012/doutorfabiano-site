@@ -1,0 +1,6 @@
+# PRÉVIA: bloqueia o Google enquanto o site usa conteúdo de demonstração.
+# Para o lançamento oficial, troque "Disallow: /" por "Allow: /".
+User-agent: *
+Disallow: /
+
+Sitemap: https://doutorfabiano.help/sitemap.xml
