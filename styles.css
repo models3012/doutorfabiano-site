@@ -98,6 +98,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 
 .section { padding-block: clamp(84px, 11vw, 144px); position: relative; }
 .section-white { background: var(--white); }
+#transformacoes { padding-top: clamp(56px, 7vw, 96px); }
 .section-soft { background: var(--soft); }
 .section-head { display: grid; gap: 18px; max-width: 640px; margin-bottom: clamp(48px, 6vw, 72px); }
 .section-lead { font-size: 1.075rem; color: var(--graphite); max-width: 56ch; }
