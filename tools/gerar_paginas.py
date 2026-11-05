@@ -346,7 +346,7 @@ TREATMENTS = [
         "h1": "Harmonização orofacial em Goiânia",
         "eyebrow": "Estética da face",
         "intro": "Equilíbrio entre sorriso e rosto, com resultado natural. A harmonização orofacial usa procedimentos minimamente invasivos para suavizar linhas, devolver volume e realçar seus traços, sem exageros.",
-        "image": ("/images/dr-fabiano.jpg", "Dr. Fabiano, especialista em harmonização orofacial em Goiânia", 1233, 1276, "50% 25%"),
+        "image": ("/images/dr-fabiano.jpg", "Dr. Fabiano, cirurgião-dentista com atuação em harmonização orofacial em Goiânia", 900, 931, "50% 30%"),
         "image_fallback": "/images/casos/facetas-depois-m.webp",
         "og": "/images/casos/facetas-depois.webp",
         "price": "geral",
