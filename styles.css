@@ -872,6 +872,51 @@ body::before {
 .table-wrap th { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .link-button { color: var(--champagne-deep); text-decoration: underline; text-underline-offset: 3px; font: inherit; padding: 0; }
 
+/* ---------- Blog ---------- */
+.blog-hero, .post-hero { display: grid; gap: 18px; max-width: 860px; }
+.blog-hero .page-title, .post-hero .page-title { margin-top: 0; }
+.post-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; color: rgba(255, 255, 255, .6); }
+.post-meta strong { color: var(--white); font-weight: 600; }
+.blog-filters { margin-bottom: 36px; }
+.blog-filters .ba-tab[aria-pressed="true"] { background: var(--navy); color: var(--white); }
+
+.post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.post-card a {
+  display: flex; flex-direction: column; height: 100%; overflow: hidden;
+  border-radius: var(--radius-lg); background: var(--white); border: 1px solid var(--line);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .5s var(--ease);
+}
+.post-card a:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); border-color: var(--champagne-light); }
+.post-card-media { aspect-ratio: 16 / 10; overflow: hidden; background: var(--soft); }
+.post-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.post-card a:hover .post-card-media img { transform: scale(1.05); }
+.post-card-body { display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px; flex: 1; }
+.post-cat { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--champagne-deep); }
+.post-card h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; line-height: 1.18; color: var(--navy); text-wrap: balance; }
+.post-card-body > p:not(.post-cat) { font-size: 14.5px; }
+.post-more { margin-top: auto; padding-top: 6px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--navy); }
+.post-more i { transition: transform .35s var(--ease); }
+.post-card a:hover .post-more i { transform: translateX(4px); }
+
+.post-section { padding-top: clamp(48px, 6vw, 72px); }
+.post-body { gap: 18px; }
+.post-body .lead { font-size: 1.2rem; line-height: 1.65; color: var(--ink); }
+.post-body h2 { margin-top: 22px; }
+.post-body h3 { font-family: var(--font-body); font-size: 1.1rem; font-weight: 600; color: var(--navy); margin-top: 6px; }
+.post-body ol { display: grid; gap: 10px; padding-left: 22px; list-style: decimal; }
+.post-body ol li { display: list-item; }
+.post-body ol li::before { display: none; }
+.post-body ol li::marker { color: var(--champagne-deep); font-weight: 600; }
+.post-cover { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 16 / 9; background: var(--soft); margin-bottom: 8px; }
+.post-cover img { width: 100%; height: 100%; object-fit: cover; }
+.post-faq { margin-top: 22px; }
+.post-cta {
+  display: grid; gap: 16px; margin-top: 22px; padding: 28px;
+  border-radius: var(--radius-lg); background: var(--ice); border: 1px solid var(--line);
+}
+.post-cta > p { font-family: var(--font-display); font-size: 1.5rem; color: var(--navy); line-height: 1.2; }
+.post-disclaimer { font-size: 13px !important; color: var(--muted); }
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--navy);
@@ -1094,6 +1139,7 @@ body::before {
   .article-grid { grid-template-columns: minmax(0, 1fr); }
   .side-card { position: static; }
   .related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 640px) {
@@ -1143,6 +1189,9 @@ body::before {
   .exp-grid li { padding-block: 24px; }
 
   .related-grid { grid-template-columns: minmax(0, 1fr); }
+  .post-grid { grid-template-columns: minmax(0, 1fr); }
+  .post-cta { padding: 22px 20px; }
+  .post-cta .btn { width: 100%; }
   .ba-pair { grid-template-columns: minmax(0, 1fr); }
   .page-hero .hero-ctas .btn, .page-price .btn, .side-card .btn { width: 100%; }
   .page-price, .side-card { padding: 24px 20px; }

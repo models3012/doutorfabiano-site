@@ -319,6 +319,18 @@ if (track) {
   updateNav();
 }
 
+/* ---------- Blog filter ---------- */
+const postGrid = $('#post-grid');
+if (postGrid) {
+  const buttons = [...document.querySelectorAll('[data-filter]')];
+  buttons.forEach((b) => b.addEventListener('click', () => {
+    buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    postGrid.querySelectorAll('.post-card').forEach((card) => {
+      card.hidden = Boolean(b.dataset.filter) && card.dataset.category !== b.dataset.filter;
+    });
+  }));
+}
+
 /* ---------- Cookie consent (LGPD) + Google Analytics 4 ---------- */
 const CONSENT_KEY = 'drfabiano-cookies';
 const readConsent = () => { try { return localStorage.getItem(CONSENT_KEY); } catch { return null; } };

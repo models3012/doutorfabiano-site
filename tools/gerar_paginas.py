@@ -663,6 +663,194 @@ def policy_page(p):
     return path, page
 
 
+# ---------- Blog ----------
+from html import escape
+
+BLOG_DIR = ROOT / "tools" / "blog"
+POSTS = sorted(
+    (json.loads(p.read_text(encoding="utf-8")) for p in BLOG_DIR.glob("*.json")),
+    key=lambda p: (p["date"], p["category"], p["slug"]),
+    reverse=True,
+)
+CATEGORY_PAGE = {
+    "Lentes de contato": ("/lentes-de-contato-dental-goiania/", "Lentes de contato dental em Goiânia"),
+    "Implante dentário": ("/implante-dentario-goiania/", "Implante dentário em Goiânia"),
+}
+
+
+def read_minutes(body):
+    words = len(re.sub(r"<[^>]+>", " ", body).split())
+    return max(3, round(words / 200))
+
+
+def br_date(iso):
+    y, m, d = iso.split("-")
+    months = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+    return f"{int(d)} de {months[int(m) - 1]} de {y}"
+
+
+def post_card(p, extra_class=""):
+    return f"""      <article class="post-card reveal{extra_class}" data-category="{escape(p['category'])}">
+        <a href="/blog/{p['slug']}/">
+          <div class="post-card-media"><img src="{p['image']}" alt="{escape(p['image_alt'])}" loading="lazy" decoding="async"></div>
+          <div class="post-card-body">
+            <p class="post-cat">{escape(p['category'])} · {read_minutes(p['body'])} min</p>
+            <h3>{escape(p['h1'])}</h3>
+            <p>{escape(p['excerpt'])}</p>
+            <span class="post-more">Ler artigo <i class="ph-light ph-arrow-right" aria-hidden="true"></i></span>
+          </div>
+        </a>
+      </article>"""
+
+
+def blog_index():
+    path = "/blog/"
+    crumbs_html, crumbs_schema = breadcrumb([("Início", "/"), ("Blog", path)])
+    cats = sorted({p["category"] for p in POSTS})
+    filters = '<button type="button" class="ba-tab" aria-pressed="true" data-filter="">Todos</button>' + "".join(
+        f'<button type="button" class="ba-tab" aria-pressed="false" data-filter="{escape(c)}">{escape(c)}</button>' for c in cats
+    )
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Blog do Dr. Fabiano",
+        "url": f"{SITE}{path}",
+        "publisher": ORG_REF,
+        "blogPost": [{"@type": "BlogPosting", "headline": p["h1"], "url": f"{SITE}/blog/{p['slug']}/"} for p in POSTS],
+    }
+    page = head("Blog de Odontologia em Goiânia | Dr. Fabiano",
+                "Guias sobre lentes de contato dental e implante dentário escritos pelo Dr. Fabiano, cirurgião-dentista em Goiânia: preços, cuidados, dúvidas e tratamentos.",
+                path, "/images/casos/lentes-depois.webp", [schema, crumbs_schema])
+    page += f"""
+{HEADER}
+
+<main id="conteudo">
+
+<section class="page-hero page-hero-compact">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container blog-hero">
+    {crumbs_html}
+    <p class="eyebrow">Guia do sorriso</p>
+    <h1 class="page-title">Blog do Dr. Fabiano</h1>
+    <p class="page-intro">Respostas claras para as dúvidas mais comuns sobre lentes de contato dental e implantes, escritas por quem atende em Goiânia há 30 anos.</p>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="blog-filters ba-tabs" role="group" aria-label="Filtrar artigos por tema">{filters}</div>
+    <div class="post-grid" id="post-grid">
+{chr(10).join(post_card(p) for p in POSTS)}
+    </div>
+  </div>
+</section>
+
+</main>
+"""
+    page += tail()
+    return path, page
+
+
+def blog_post(p):
+    path = f"/blog/{p['slug']}/"
+    crumbs_html, crumbs_schema = breadcrumb([("Início", "/"), ("Blog", "/blog/"), (p["h1"], path)])
+    minutes = read_minutes(p["body"])
+    cat_path, cat_name = CATEGORY_PAGE.get(p["category"], ("/#tratamentos", "Tratamentos"))
+    related = [o for o in POSTS if o["category"] == p["category"] and o["slug"] != p["slug"]][:3]
+    article_schema = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": p["h1"],
+        "description": p["description"],
+        "image": f"{SITE}{p['image']}",
+        "datePublished": p["date"],
+        "dateModified": TODAY,
+        "inLanguage": "pt-BR",
+        "mainEntityOfPage": f"{SITE}{path}",
+        "keywords": p["keyword"],
+        "author": {"@type": "Person", "name": "Dr. Fabiano", "jobTitle": "Cirurgião-dentista", "url": f"{SITE}/#corpo-clinico"},
+        "publisher": ORG_REF,
+    }
+    title = f"{p['title']} | Dr. Fabiano" if len(p["title"]) <= 48 else p["title"]
+    page = head(escape(title), escape(p["description"]), path, p["image"], [article_schema, crumbs_schema, faq_schema(p["faqs"])])
+    page += f"""
+{HEADER}
+
+<main id="conteudo">
+
+<section class="page-hero page-hero-compact">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container post-hero">
+    {crumbs_html}
+    <p class="eyebrow">{escape(p['category'])}</p>
+    <h1 class="page-title">{escape(p['h1'])}</h1>
+    <p class="post-meta"><span class="post-author">Por <strong>Dr. Fabiano</strong> · CRO-GO 00.000</span><span>{br_date(p['date'])}</span><span>{minutes} min de leitura</span></p>
+  </div>
+</section>
+
+<div class="section section-white post-section">
+  <div class="container article-grid">
+    <article class="prose post-body">
+      <figure class="post-cover"><img src="{p['image']}" alt="{escape(p['image_alt'])}" fetchpriority="high"></figure>
+      {p['body']}
+      <section class="post-faq">
+        <h2>Perguntas frequentes</h2>
+        <div class="faq-list">
+{faq_html(p['faqs'])}
+        </div>
+      </section>
+      <div class="post-cta">
+        <p>Quer saber se este tratamento é indicado para você?</p>
+        <div class="hero-ctas">
+          <a class="btn btn-gold" data-wa="{escape(p['category'])} (vim pelo artigo do blog)" href="{WA}"><i class="ph-light ph-whatsapp-logo" aria-hidden="true"></i> Falar com a equipe</a>
+          <a class="btn btn-ghost" href="{cat_path}">{cat_name} <i class="ph-light ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <p class="post-disclaimer">Conteúdo informativo. Não substitui a avaliação clínica presencial. Resultados variam de pessoa para pessoa.</p>
+    </article>
+    {SIDE_CARD}
+  </div>
+</div>
+
+<section class="section" aria-labelledby="relacionados">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="eyebrow">Continue lendo</p>
+      <h2 class="section-title" id="relacionados">Mais sobre {p['category'].lower()}</h2>
+    </header>
+    <div class="post-grid">
+{chr(10).join(post_card(o) for o in related)}
+    </div>
+  </div>
+</section>
+
+</main>
+"""
+    page += tail()
+    return path, page
+
+
+def update_home_teaser():
+    """Rewrites the blog teaser on the home page between the BLOG markers."""
+    global index
+    start, end = "<!-- BLOG:INICIO -->", "<!-- BLOG:FIM -->"
+    if start not in index or not POSTS:
+        return
+    picks = []
+    for cat in CATEGORY_PAGE:
+        picks += [p for p in POSTS if p["category"] == cat][:2]
+    picks = picks[:3]
+    cards = "\n".join(post_card(p) for p in picks).replace('src="/images', 'src="images')
+    block = f"""{start}
+    <div class="post-grid">
+{cards}
+    </div>
+    {end}"""
+    index = re.sub(re.escape(start) + r".*?" + re.escape(end), block, index, flags=re.S)
+    (ROOT / "index.html").write_text(index, encoding="utf-8")
+    print("atualizado bloco do blog na página inicial")
+
+
 def write(path, html):
     out = ROOT / path.strip("/") / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -671,10 +859,16 @@ def write(path, html):
 
 
 pages = [treatment_page(t) for t in TREATMENTS] + [policy_page(p) for p in POLICIES]
+if POSTS:
+    pages += [blog_index()] + [blog_post(p) for p in POSTS]
 for path, html in pages:
     write(path, html)
+update_home_teaser()
 
-urls = [("/", "1.0")] + [(f"/{t['slug']}/", "0.9") for t in TREATMENTS] + [(f"/{p['slug']}/", "0.3") for p in POLICIES]
+urls = [("/", "1.0")] + [(f"/{t['slug']}/", "0.9") for t in TREATMENTS]
+if POSTS:
+    urls += [("/blog/", "0.7")] + [(f"/blog/{p['slug']}/", "0.7") for p in POSTS]
+urls += [(f"/{p['slug']}/", "0.3") for p in POLICIES]
 sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 sitemap += "".join(
     f"  <url>\n    <loc>{SITE}{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n    <priority>{prio}</priority>\n  </url>\n"
