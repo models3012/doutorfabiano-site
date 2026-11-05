@@ -118,6 +118,7 @@
     <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
       <ul>
         <li><a href="#inicio">Início</a></li>
+        <li><a href="#transformacoes">Transformações</a></li>
         <li class="has-mega">
           <a href="#tratamentos" class="mega-trigger">Tratamentos <i class="ph-light ph-caret-down" aria-hidden="true"></i></a>
           <div class="mega">
@@ -139,7 +140,6 @@
           </div>
         </li>
         <li><a href="#sobre">Sobre Nós</a></li>
-        <li><a href="#transformacoes">Transformações</a></li>
         <li><a href="#depoimentos">Depoimentos</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="#contato">Contato</a></li>
@@ -249,8 +249,55 @@
   </div>
 </section>
 
+<!-- ============ TRANSFORMAÇÕES ============ -->
+<section class="section section-white" id="transformacoes">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="eyebrow">Transformações</p>
+      <h2 class="section-title">Arraste e veja a <em>diferença</em></h2>
+      <p class="section-lead">Casos que mostram o impacto estético e funcional de um planejamento bem feito.</p>
+    </header>
+
+    <div class="ba-wrap reveal">
+      <div class="ba-tabs" role="tablist" aria-label="Casos clínicos">
+        <button role="tab" class="ba-tab" aria-selected="true" data-case="0">Lentes de contato</button>
+        <button role="tab" class="ba-tab" aria-selected="false" data-case="1">Clareamento</button>
+        <button role="tab" class="ba-tab" aria-selected="false" data-case="2">Invisalign</button>
+        <button role="tab" class="ba-tab" aria-selected="false" data-case="3">Diastema</button>
+        <button role="tab" class="ba-tab" aria-selected="false" data-case="4">Facetas</button>
+      </div>
+
+      <div class="ba-stage">
+        <div class="ba-slider" id="ba-slider" style="--pos: 50%">
+          <img class="ba-img ba-after" id="ba-after" src="images/casos/lentes-depois.webp" alt="Depois: lentes de contato em porcelana" width="1672" height="941" draggable="false">
+          <img class="ba-img ba-before" id="ba-before" src="images/casos/lentes-antes.webp" alt="Antes: lentes de contato em porcelana" width="1672" height="941" draggable="false">
+          <span class="ba-label ba-label-before">Antes</span>
+          <span class="ba-label ba-label-after">Depois</span>
+          <div class="ba-handle" aria-hidden="true">
+            <span class="ba-knob"><i class="ph-light ph-caret-left"></i><i class="ph-light ph-caret-right"></i></span>
+          </div>
+          <input class="ba-range" id="ba-range" type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois">
+        </div>
+
+        <aside class="ba-info" aria-live="polite">
+          <p class="ba-kicker" id="ba-kicker">Caso 01 · Lentes de contato</p>
+          <h3 id="ba-title">Lentes de contato em porcelana</h3>
+          <p id="ba-desc">Fechamento de diastema, correção de cor e proporção dos dentes anteriores com mínimo desgaste.</p>
+          <dl class="ba-meta">
+            <div><dt>Duração</dt><dd id="ba-dur">21 dias</dd></div>
+            <div><dt>Sessões</dt><dd id="ba-ses">3</dd></div>
+            <div><dt>Elementos</dt><dd id="ba-el">10 lentes</dd></div>
+          </dl>
+          <a class="btn btn-gold" data-wa href="https://wa.me/5562995540548">Quero um resultado assim</a>
+        </aside>
+      </div>
+      <p class="ba-note">Imagens demonstrativas. Resultados variam de acordo com cada caso e avaliação clínica.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ TRATAMENTOS ============ -->
-<section class="section section-white" id="tratamentos">
+<section class="section" id="tratamentos">
   <div class="container">
     <header class="section-head reveal">
       <p class="eyebrow">Tratamentos de excelência</p>
@@ -352,7 +399,7 @@
 </section>
 
 <!-- ============ JORNADA ============ -->
-<section class="section" id="jornada">
+<section class="section section-white" id="jornada">
   <div class="container">
     <header class="section-head reveal">
       <p class="eyebrow">Como funciona</p>
@@ -384,53 +431,6 @@
     </ol>
     <div class="journey-cta reveal">
       <a class="btn btn-ghost" data-wa href="https://wa.me/5562995540548">Começar pela conversa inicial <i class="ph-light ph-arrow-right" aria-hidden="true"></i></a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TRANSFORMAÇÕES ============ -->
-<section class="section section-white" id="transformacoes">
-  <div class="container">
-    <header class="section-head reveal">
-      <p class="eyebrow">Transformações</p>
-      <h2 class="section-title">Arraste e veja a <em>diferença</em></h2>
-      <p class="section-lead">Casos que mostram o impacto estético e funcional de um planejamento bem feito.</p>
-    </header>
-
-    <div class="ba-wrap reveal">
-      <div class="ba-tabs" role="tablist" aria-label="Casos clínicos">
-        <button role="tab" class="ba-tab" aria-selected="true" data-case="0">Lentes de contato</button>
-        <button role="tab" class="ba-tab" aria-selected="false" data-case="1">Clareamento</button>
-        <button role="tab" class="ba-tab" aria-selected="false" data-case="2">Invisalign</button>
-        <button role="tab" class="ba-tab" aria-selected="false" data-case="3">Diastema</button>
-        <button role="tab" class="ba-tab" aria-selected="false" data-case="4">Facetas</button>
-      </div>
-
-      <div class="ba-stage">
-        <div class="ba-slider" id="ba-slider" style="--pos: 50%">
-          <img class="ba-img ba-after" id="ba-after" src="images/casos/lentes-depois.webp" alt="Depois: lentes de contato em porcelana" width="1672" height="941" draggable="false">
-          <img class="ba-img ba-before" id="ba-before" src="images/casos/lentes-antes.webp" alt="Antes: lentes de contato em porcelana" width="1672" height="941" draggable="false">
-          <span class="ba-label ba-label-before">Antes</span>
-          <span class="ba-label ba-label-after">Depois</span>
-          <div class="ba-handle" aria-hidden="true">
-            <span class="ba-knob"><i class="ph-light ph-caret-left"></i><i class="ph-light ph-caret-right"></i></span>
-          </div>
-          <input class="ba-range" id="ba-range" type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois">
-        </div>
-
-        <aside class="ba-info" aria-live="polite">
-          <p class="ba-kicker" id="ba-kicker">Caso 01 · Lentes de contato</p>
-          <h3 id="ba-title">Lentes de contato em porcelana</h3>
-          <p id="ba-desc">Fechamento de diastema, correção de cor e proporção dos dentes anteriores com mínimo desgaste.</p>
-          <dl class="ba-meta">
-            <div><dt>Duração</dt><dd id="ba-dur">21 dias</dd></div>
-            <div><dt>Sessões</dt><dd id="ba-ses">3</dd></div>
-            <div><dt>Elementos</dt><dd id="ba-el">10 lentes</dd></div>
-          </dl>
-          <a class="btn btn-gold" data-wa href="https://wa.me/5562995540548">Quero um resultado assim</a>
-        </aside>
-      </div>
-      <p class="ba-note">Imagens demonstrativas. Resultados variam de acordo com cada caso e avaliação clínica.</p>
     </div>
   </div>
 </section>
