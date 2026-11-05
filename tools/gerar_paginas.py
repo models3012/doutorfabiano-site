@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://doutorfabiano.help"
 TODAY = date.today().isoformat()
 WA = "https://wa.me/5562995540548"
+# Imagem que aparece quando o link é compartilhado (WhatsApp, Instagram, Facebook)
+SHARE_IMAGE = "/images/compartilhar.jpg"
 
 # Enquanto o site for prévia, as páginas ficam fora do Google. No lançamento, troque para False.
 PREVIEW = True
@@ -58,8 +60,14 @@ def head(title, description, path, image, schema):
   <meta property="og:locale" content="pt_BR">
   <meta property="og:url" content="{url}">
   <meta property="og:site_name" content="Dr. Fabiano Odontologia">
-  <meta property="og:image" content="{SITE}{image}">
+  <meta property="og:image" content="{SITE}{SHARE_IMAGE}">
+  <meta property="og:image:secure_url" content="{SITE}{SHARE_IMAGE}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Dr. Fabiano Odontologia, Goiânia: implantes, lentes de contato e prótese fixa">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{SITE}{SHARE_IMAGE}">
   {HEAD_LINKS}
   <script>document.documentElement.classList.add('js')</script>
 {schemas}
